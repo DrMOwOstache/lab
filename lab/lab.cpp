@@ -136,17 +136,17 @@ void lab::setupUI()
     //++++++++++++++++//
     //----------------//
 
-    firstColumn->addItem(subLabels);
-    firstColumn->addItem(songOptions);
+    firstColumn->addLayout(subLabels);
+    firstColumn->addLayout(songOptions);
 
     //----------------//
 
-    rightColumn->addItem(playlistOptions);
+    rightColumn->addLayout(playlistOptions);
 
     //----------------//
-    mainMusic->addItem(firstColumn);
-    mainMusic->addItem(middleButton);
-    mainMusic->addItem(rightColumn);
+    mainMusic->addLayout(firstColumn);
+    mainMusic->addLayout(middleButton);
+    mainMusic->addLayout(rightColumn);
     centralWidget->setLayout(mainMusic);
     this->setCentralWidget(centralWidget);
 
