@@ -24,5 +24,7 @@ public:
 	void setLink(std::string link);
 	void setDuration(std::tuple<int, int, int > duration);
 
+	bool operator==(const Song& other);
+
 	~Song() = default;
 };

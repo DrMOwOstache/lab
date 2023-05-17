@@ -79,3 +79,10 @@ void Song::setDuration(tuple<int, int, int > duration)
 	}
 
 }
+
+bool Song::operator==(const Song& other)
+{
+	if (duration == other.duration && artist == other.artist && link == other.link && title == other.title)
+		return true;
+	return false;
+}
