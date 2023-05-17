@@ -19,5 +19,10 @@ public:
 	std::string getLink();
 	std::tuple<int, int, int > getDuration();
 
+	void setTitle(std::string title);
+	void setArtist(std::string artist);
+	void setLink(std::string link);
+	void setDuration(std::tuple<int, int, int > duration);
+
 	~Song() = default;
 };

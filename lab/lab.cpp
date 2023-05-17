@@ -4,8 +4,115 @@
 lab::lab(QWidget *parent)
     : QMainWindow(parent)
 {
+
     this->setupUI();
+
+    connectorSetup();
     //ui.setupUi(this);
+}
+
+void lab::connectorSetup()
+{
+    connect(addB, SIGNAL(released()), this, SLOT(addSong()));
+    connect(delB, SIGNAL(released()), this, SLOT(removeSong()));
+    connect(updB, SIGNAL(released()), this, SLOT(updateSong()));
+    connect(fltB, SIGNAL(released()), this, SLOT(filterSong()));
+    connect(transferB, SIGNAL(released()), this, SLOT(transferSong()));
+
+}
+
+void lab::addSong()
+{
+    std::string dur = lineDuration->text().toLocal8Bit().constData();
+    int h = 0, m = 0, s = 0, i;
+    for (i = 0; dur[i] != '\0'; i++)
+    {
+        if (dur[i] == ':' || dur[i] == '.' || dur[i] == '.' || dur[i] == '\0')
+        {
+            while ((dur[i] == ':' || dur[i] == '.' || dur[i] == '.') && dur[i] !='\0')
+                i++;
+            s++;
+        }
+    }
+
+    i = 0;
+    while (s == 3)
+    {
+        if (dur[i] == ':' || dur[i] == '.' || dur[i] == '.' || dur[i] == '\0')
+        {
+            while ((dur[i] == ':' || dur[i] == '.' || dur[i] == '.') && dur[i] != '\0')
+                i++;
+            s--;
+        }
+        else
+            h = h * 10 + dur[i] - '0';
+        i++;
+    }
+
+    while (s == 2)
+    {
+        if (dur[i] == ':' || dur[i] == '.' || dur[i] == '.' || dur[i] == '\0')
+        {
+            while ((dur[i] == ':' || dur[i] == '.' || dur[i] == '.') && dur[i] != '\0')
+                i++;
+            s--;
+        }
+        else
+            m = m * 10 + dur[i] - '0';
+        i++;
+    }
+
+    while (dur[i] != '\0')
+    {
+        if (dur[i] == ':' || dur[i] == '.' || dur[i] == '.' || dur[i] == '\0')
+        {
+            while ((dur[i] == ':' || dur[i] == '.' || dur[i] == '.') && dur[i] != '\0')
+                i++;
+            s--;
+        }
+        else
+            s = s * 10 + dur[i] - '0';
+        i++;
+    }
+
+    
+
+    lSong.push_back(Song(std::string(lineTitle->text().toLocal8Bit().constData()),
+        std::string(lineArtist->text().toLocal8Bit().constData()),
+        std::string(lineLink->text().toLocal8Bit().constData()),
+        std::tuple<int, int, int >{h,m,s}));
+
+
+    melody->addItem(QString(lineTitle->text() + " made by " + lineArtist->text() + " of duration "
+        + QString::number(get<0>(lSong[lSong.size() - 1].getDuration())) + ":"
+        + QString::number(get<1>(lSong[lSong.size() - 1].getDuration())) + ":"
+        + QString::number(get<2>(lSong[lSong.size() - 1].getDuration()))));
+    /* NotImplemented = new QMessageBox();
+     NotImplemented->information(this, "What happen'?", "Not implemented yet!");*/
+}
+
+void lab::removeSong()
+{
+    NotImplemented = new QMessageBox();
+    NotImplemented->information(this, "What happen'?", "Not implemented yet!");
+}
+
+void lab::filterSong()
+{
+    NotImplemented = new QMessageBox();
+    NotImplemented->information(this, "What happen'?", "Not implemented yet!");
+}
+
+void lab::updateSong()
+{
+    NotImplemented = new QMessageBox();
+    NotImplemented->information(this, "What happen'?", "Not implemented yet!");
+}
+
+void lab::transferSong()
+{
+    NotImplemented = new QMessageBox();
+    NotImplemented->information(this, "What happen'?", "Not implemented yet!");
 }
 
 lab::~lab()
@@ -150,6 +257,9 @@ void lab::setupUI()
     centralWidget->setLayout(mainMusic);
     this->setCentralWidget(centralWidget);
 
+
     //----------------//
 
 }
+
+

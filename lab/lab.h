@@ -13,7 +13,12 @@
 #include <QRect>
 #include <QGridLayout>
 #include <QPushButton>
+#include <QMessageBox>
 #include "ui_lab.h"
+
+
+#include "Song.h"
+#include <vector>
 
 class lab : public QMainWindow
 {
@@ -23,7 +28,22 @@ public:
     lab(QWidget *parent = nullptr);
     ~lab();
 
+private slots:
+    void addSong();
+    void removeSong();
+    void filterSong();
+    void updateSong();
+
+    void transferSong();
+
 private:
+    //++Song++//
+
+    std::vector<Song> lSong;
+    std::vector<Song> playLSong;
+
+    //++Song++//
+
     void setupUI();
 
     //==
@@ -43,7 +63,7 @@ private:
     //==
     QGridLayout* playlistOptions;
     //==
-    //first column
+    //left column
     //++
     QLabel* Songs;
     QListWidget* melody;
@@ -65,7 +85,11 @@ private:
     QPushButton* updB;
     QPushButton* fltB;
     //++
+    //middle column
+    //++
     QPushButton* transferB;
+    //++
+    //right column
     //++
     QLabel* playlist;
     QListWidget* playlist_List;
@@ -73,6 +97,19 @@ private:
     QPushButton* playB;
     QPushButton* nextB;
     //++
+    //MessageBox
+    //++
+    QMessageBox* NotImplemented;
+    QPushButton* OKB;
+
+    //++
+    //actions
+    //--
+    void connectorSetup();
+    QString intToQString(int n);
+
+
+    //--
 
     Ui::labClass ui;
 };
