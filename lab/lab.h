@@ -17,7 +17,7 @@
 #include "ui_lab.h"
 
 
-#include "Song.h"
+#include "SongRepo.h"
 #include <vector>
 
 class lab : public QMainWindow
@@ -39,8 +39,8 @@ private slots:
 private:
     //++Song++//
 
-    std::vector<Song> lSong;
-    std::vector<Song> playLSong;
+    SongRepository lSong(std::string("listSongs"));
+    SongRepository playLSong(std::string("playlistSongs"));
 
     //++Song++//
 

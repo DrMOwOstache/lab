@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <tuple>
+#include <exception>
 
 class Song
 {
@@ -14,6 +15,8 @@ public:
 	Song();
 	Song(std::string title = "N/A", std::string artist = "N/A", std::string link = "N/A", std::tuple<int, int, int > duration = std::tuple<int, int, int >{ 0,0,0 });
 
+	bool operator==(const Song& other);
+
 	std::string getTitle();
 	std::string getArtist();
 	std::string getLink();
@@ -24,7 +27,15 @@ public:
 	void setLink(std::string link);
 	void setDuration(std::tuple<int, int, int > duration);
 
-	bool operator==(const Song& other);
-
 	~Song() = default;
+};
+
+class SongException : public std::exception
+{
+	friend class Song;
+
+public:
+	
+	_NODISCARD char const* what() const override;
+
 };

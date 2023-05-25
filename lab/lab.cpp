@@ -28,10 +28,10 @@ void lab::addSong()
     int h = 0, m = 0, s = 0, i;
     for (i = 0; dur[i] != '\0'; i++)
     {
-        qDebug() << dur[i] << ' ' << s;
+        //qDebug() << dur[i] << ' ' << s;
         if (dur[i] == ':' || dur[i] == '.' || dur[i] == '.' || dur[i] == '\0')
         {
-            while ((dur[i] == ':' || dur[i] == '.' || dur[i] == '.') && dur[i] !='\0')
+            while ((dur[i] == ':' || dur[i] == '.' || dur[i] == '.') && dur[i] != '\0')
                 i++;
             s++;
             i--;
@@ -81,33 +81,34 @@ void lab::addSong()
         i++;
     }
 
-    QString elem = QString(lineTitle->text() + " made by " + lineArtist->text() + " of duration "
-        + QString::number(h) + ":"
-        + QString::number(m) + ":"
-        + QString::number(s));
-    bool ok = false;
-    if (!lSong.empty())
-        for (int i = 0; i < lSong.size() && ok == false; i++)
-        {
-            qDebug() << melody->item(i)->text() << " == " << elem << " it's " << (melody->item(i)->text() == elem);
-            if (melody->item(i)->text() == elem)
-                ok = true;
-        }
+    //QString elem = QString(lineTitle->text() + " made by " + lineArtist->text() + " of duration "
+    //    + QString::number(h) + ":"
+    //    + QString::number(m) + ":"
+    //    + QString::number(s));
+    //bool ok = false;
+    //if (!lSong.getSongs().empty())
+    //    for (int i = 0; i < lSong.getSongs().size() && ok == false; i++)
+    //    {
+    //        qDebug() << melody->item(i)->text() << " == " << elem << " it's " << (melody->item(i)->text() == elem);
+    //        if (melody->item(i)->text() == elem)
+    //            ok = true;
+    //    }
 
+
+    int ok;
     //qDebug() << "lol";
-    if (ok == false)
+    ok = lSong.addSong(Song(std::string(lineTitle->text().toLocal8Bit().constData()),
+        std::string(lineArtist->text().toLocal8Bit().constData()),
+        std::string(lineLink->text().toLocal8Bit().constData()),
+        std::tuple<int, int, int >{h, m, s}));
+
+    if (ok == true)
     {
-        lSong.push_back(Song(std::string(lineTitle->text().toLocal8Bit().constData()),
-            std::string(lineArtist->text().toLocal8Bit().constData()),
-            std::string(lineLink->text().toLocal8Bit().constData()),
-            std::tuple<int, int, int >{h, m, s}));
-
-
-        melody->addItem(QString(QString::fromStdString(lSong[lSong.size()-1].getTitle()) + " made by "
-            + QString::fromStdString(lSong[lSong.size() - 1].getArtist()) + " of duration "
-            + QString::number(get<0>(lSong[lSong.size() - 1].getDuration())) + ":"
-            + QString::number(get<1>(lSong[lSong.size() - 1].getDuration())) + ":"
-            + QString::number(get<2>(lSong[lSong.size() - 1].getDuration()))));
+        melody->addItem(QString(QString::fromStdString(lSong.getSongs()[lSong.getSongs().size() - 1].getTitle()) + " made by "
+            + QString::fromStdString(lSong.getSongs()[lSong.getSongs().size() - 1].getArtist()) + " of duration "
+            + QString::number(get<0>(lSong.getSongs()[lSong.getSongs().size() - 1].getDuration())) + ":"
+            + QString::number(get<1>(lSong.getSongs()[lSong.getSongs().size() - 1].getDuration())) + ":"
+            + QString::number(get<2>(lSong.getSongs()[lSong.getSongs().size() - 1].getDuration()))));
     }
 }
 
@@ -115,7 +116,7 @@ void lab::removeSong()
 {
     if (!melody->selectedItems().empty())
     {
-        lSong.erase(std::find(lSong.begin(), lSong.end(), lSong[melody->row(melody->selectedItems()[0])]));
+        lSong.removeSong(melody->row(melody->selectedItems()[0]));
         //qDebug() << melody->row(melody->selectedItems()[0]);
         melody->takeItem(melody->row(melody->selectedItems()[0]));
     }
@@ -139,16 +140,13 @@ void lab::transferSong()
     {
         int selected = melody->row(melody->selectedItems()[0]);
 
-        playlist_List->addItem(QString(QString::fromStdString(lSong[selected].getTitle()) + " made by "
-            + QString::fromStdString(lSong[selected].getArtist()) + " of duration "
-            + QString::number(get<0>(lSong[selected].getDuration())) + ":"
-            + QString::number(get<1>(lSong[selected].getDuration())) + ":"
-            + QString::number(get<2>(lSong[selected].getDuration()))));
+        playlist_List->addItem(QString(QString::fromStdString(lSong.getSongs()[selected].getTitle()) + " made by "
+            + QString::fromStdString(lSong.getSongs()[selected].getArtist()) + " of duration "
+            + QString::number(get<0>(lSong.getSongs()[selected].getDuration())) + ":"
+            + QString::number(get<1>(lSong.getSongs()[selected].getDuration())) + ":"
+            + QString::number(get<2>(lSong.getSongs()[selected].getDuration()))));
 
-        playLSong.push_back(lSong[selected]);
-        lSong.erase(std::find(lSong.begin(), lSong.end(), lSong[selected]));
-        //qDebug() << melody->row(melody->selectedItems()[0]);
-        melody->takeItem(selected);
+        playLSong.addSong(lSong.getSongs()[selected]);
     }
 }
 

@@ -43,10 +43,19 @@
     <ClCompile Include="Song.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SongRepo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Song.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="SongRepo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="default_songs.csv" />
   </ItemGroup>
 </Project>

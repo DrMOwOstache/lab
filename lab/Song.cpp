@@ -80,9 +80,12 @@ void Song::setDuration(tuple<int, int, int > duration)
 
 }
 
+char const* SongException::what() const
+{
+	return "Wrong action acted upon <song> type";
+}
+
 bool Song::operator==(const Song& other)
 {
-	if (duration == other.duration && artist == other.artist && link == other.link && title == other.title)
-		return true;
-	return false;
+	return (link == other.link);
 }
