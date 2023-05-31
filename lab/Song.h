@@ -33,9 +33,13 @@ public:
 class SongException : public std::exception
 {
 	friend class Song;
+private:
+	std::string errorMass;
 
 public:
 	
+	SongException(std::string massegePromt);
+
 	_NODISCARD char const* what() const override;
 
 };

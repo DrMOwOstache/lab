@@ -95,7 +95,7 @@ void lab::addSong()
     //    }
 
 
-    int ok;
+    bool ok;
     //qDebug() << "lol";
     ok = lSong.addSong(Song(std::string(lineTitle->text().toLocal8Bit().constData()),
         std::string(lineArtist->text().toLocal8Bit().constData()),
@@ -109,6 +109,8 @@ void lab::addSong()
             + QString::number(get<0>(lSong.getSongs()[lSong.getSongs().size() - 1].getDuration())) + ":"
             + QString::number(get<1>(lSong.getSongs()[lSong.getSongs().size() - 1].getDuration())) + ":"
             + QString::number(get<2>(lSong.getSongs()[lSong.getSongs().size() - 1].getDuration()))));
+
+        lSong.updateFile();
     }
 }
 
@@ -119,6 +121,7 @@ void lab::removeSong()
         lSong.removeSong(melody->row(melody->selectedItems()[0]));
         //qDebug() << melody->row(melody->selectedItems()[0]);
         melody->takeItem(melody->row(melody->selectedItems()[0]));
+        lSong.updateFile();
     }
 }
 
@@ -146,7 +149,8 @@ void lab::transferSong()
             + QString::number(get<1>(lSong.getSongs()[selected].getDuration())) + ":"
             + QString::number(get<2>(lSong.getSongs()[selected].getDuration()))));
 
-        playLSong.addSong(lSong.getSongs()[selected]);
+        playLSong.addSong(lSong.getSongs()[selected],true);
+        playLSong.updateFile();
     }
 }
 
@@ -188,6 +192,14 @@ void lab::setupUI()
     //++++++++++++++++//
     Songs = new QLabel("All songs");
     melody = new QListWidget;
+
+    if (!lSong.getSongs().empty())
+        for (int i = 0; i < lSong.getSongs().size(); i++)
+            melody->addItem(QString(QString::fromStdString(lSong.getSongs()[i].getTitle()) + " made by "
+                + QString::fromStdString(lSong.getSongs()[i].getArtist()) + " of duration "
+                + QString::number(get<0>(lSong.getSongs()[i].getDuration())) + ":"
+                + QString::number(get<1>(lSong.getSongs()[i].getDuration())) + ":"
+                + QString::number(get<2>(lSong.getSongs()[i].getDuration()))));
 
     subSongs->addWidget(Songs);
 
@@ -265,6 +277,14 @@ void lab::setupUI()
     //++++++++++++++++//
 
     playlist_List = new QListWidget;
+
+    if (!playLSong.getSongs().empty())
+        for (int i = 0; i < playLSong.getSongs().size(); i++)
+            playlist_List->addItem(QString(QString::fromStdString(playLSong.getSongs()[i].getTitle()) + " made by "
+                + QString::fromStdString(playLSong.getSongs()[i].getArtist()) + " of duration "
+                + QString::number(get<0>(playLSong.getSongs()[i].getDuration())) + ":"
+                + QString::number(get<1>(playLSong.getSongs()[i].getDuration())) + ":"
+                + QString::number(get<2>(playLSong.getSongs()[i].getDuration()))));
 
     rightColumn->addWidget(playlist_List);
     //++++++++++++++++//

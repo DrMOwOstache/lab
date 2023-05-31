@@ -39,8 +39,8 @@ private slots:
 private:
     //++Song++//
 
-    SongRepository lSong(std::string("listSongs"));
-    SongRepository playLSong(std::string("playlistSongs"));
+    SongRepository lSong{ "listSongs.csv" };
+    SongRepository playLSong{ "playlistSongs.csv" };
 
     //++Song++//
 

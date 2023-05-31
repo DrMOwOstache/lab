@@ -46,6 +46,9 @@
     <ClCompile Include="SongRepo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Controller.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Song.h">
@@ -54,8 +57,16 @@
     <ClInclude Include="SongRepo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Controller.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="default_songs.csv" />
+    <None Include="listSongs.csv">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="playlistSongs.csv">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -83,6 +83,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Controller.cpp" />
     <ClCompile Include="Song.cpp" />
     <ClCompile Include="SongRepo.cpp" />
     <QtRcc Include="lab.qrc" />
@@ -92,11 +93,13 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Controller.h" />
     <ClInclude Include="Song.h" />
     <ClInclude Include="SongRepo.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="default_songs.csv" />
+    <None Include="listSongs.csv" />
+    <None Include="playlistSongs.csv" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

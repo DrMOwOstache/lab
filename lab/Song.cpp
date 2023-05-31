@@ -80,12 +80,17 @@ void Song::setDuration(tuple<int, int, int > duration)
 
 }
 
+SongException::SongException(std::string massegePromt)
+{
+	errorMass = massegePromt;
+}
+
 char const* SongException::what() const
 {
-	return "Wrong action acted upon <song> type";
+	return  errorMass.c_str();
 }
 
 bool Song::operator==(const Song& other)
 {
-	return (link == other.link);
+	return (artist == other.artist && title == other.title);
 }
